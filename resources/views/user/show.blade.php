@@ -9,8 +9,8 @@
         </div>
         <div class="card-body">
             <
-            <p>Цена: {{$user->price}}</p>
-            <p>Описание: {{$user->description}}</p>
+            <p>Почта: {{$user->email}}</p>
+            <p>Имя: {{$user->password}}</p>
 
             <button class="btn btn-primary" onclick="history.go(-1);">Назад</button>
         </div>

@@ -39,12 +39,17 @@
 
                 <td>
                     @auth
-                        <form method="POST" action="{{route('cart.put', $product->id)}}">
-                            @csrf
-                            @method("PUT")
-                            <input type="hidden" name="product_id" value="{{$product->id}}"/>
-                            <button type="submit" class="btn btn-danger btn-sm">Добавить в корзину</button>
-                        </form>
+                        @if($product->quantity > 0)
+                            <form method="POST" action="{{route('cart.put', $product->id)}}">
+                                @csrf
+                                @method("PUT")
+                                <input type="hidden" name="product_id" value="{{$product->id}}"/>
+                                <button type="submit" class="btn btn-danger btn-sm">Добавить в корзину</button>
+                            </form>
+                        @endif
+                        @if($product->quantity <= 0)
+                            <p>Нет в наличии</p>
+                        @endif
                     @endauth
                     <a href="{{route('products.show', $product->id)}}">
                         <button class="btn btn-primary btn-sm">Просмотреть</button>

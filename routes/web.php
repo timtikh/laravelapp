@@ -17,9 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => 'role:admin'], function () {
-    Route::resource('user', 'App\Http\Controllers\UserController');
-});
+
+Route::resource('user', 'App\Http\Controllers\UserController');
+
 
 Route::resource('products', 'App\Http\Controllers\ProductController');
 Route::resource('orders', 'App\Http\Controllers\OrderController');

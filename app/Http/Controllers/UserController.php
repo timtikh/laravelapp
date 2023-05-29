@@ -53,20 +53,20 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'password' => 'required|numeric',
-            'email' => 'required|string',
+            'password' => 'required|string',
+            'email' => 'required|email',
         ]);
 
         $user = User::create($validated);
 
-        return redirect()->route('user.show', $user->id)
-            ->with('success', 'Product created successfully.');
+        return view('user.show')->with('user', $user);
+
     }
 
     /**

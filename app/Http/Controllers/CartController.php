@@ -35,7 +35,7 @@ class CartController extends Controller
             }
         });
 
-        return response()->redirectToRoute('products.index');
+        return response()->redirectToRoute('order.index');
     }
 
     public function put(Request $request)
@@ -51,6 +51,8 @@ class CartController extends Controller
             'price' => $product->price,
             'quantity' => 1,
         ]);
+        $product->quantity = $product->quantity - 1;
+
         return response()->redirectTo('cart');
     }
 

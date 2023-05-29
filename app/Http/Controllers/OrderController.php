@@ -3,19 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\OrderProduct;
+
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $orders = Order::all()
             ->where('user_id', '=', auth()->user()->id);
         return view('orders.index', compact('orders'))
             ->with('orders', $orders);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $new_order = Order::create([
             'user_id' => auth()->user()->id,
             'status' => "В обработке",
@@ -33,7 +38,9 @@ class OrderController extends Controller
         $cart->clearItems();
         return redirect()->to('/orders');
     }
-    public function destroy(Request $request) {
+
+    public function destroy(Request $request)
+    {
         $id = $request->integer('id');
         $order = Order::all()->where('id', '=', $id)->first();
         $order->delete();
