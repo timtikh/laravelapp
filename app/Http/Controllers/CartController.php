@@ -24,18 +24,21 @@ class CartController extends Controller
             $order = Order::create([
                 'user_id' => auth()->user()->id,
                 'status' => "В обработке",
+                'special_requests' => "Не предъявляются",
             ]);
 
             foreach ($cart->getItems() as $item) {
+                $temp = $item->getExtraInfo();
                 OrderProduct::create([
                     'order_id' => $order->id,
                     'product_id' => $item->getId(),
-                    'quantity' => $item->getQuantity()
+                    'quantity' => $item->getQuantity(),
+                    'quantity_at_storage' => reset($temp)
                 ]);
             }
         });
 
-        return response()->redirectToRoute('order.index');
+        return response()->redirectToRoute('orders.index');
     }
 
     public function put(Request $request)
@@ -50,6 +53,9 @@ class CartController extends Controller
             'title' => $product->name,
             'price' => $product->price,
             'quantity' => 1,
+            'extra_info' => [
+                'quantity_at_stroage' => $product->quantity
+            ]
         ]);
         $product->quantity = $product->quantity - 1;
 

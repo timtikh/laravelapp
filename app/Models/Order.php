@@ -32,7 +32,7 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $fillable = ['user_id', 'status'];
+    protected $fillable = ['user_id', 'status','special_requests'];
 
 
     public function orderProducts()

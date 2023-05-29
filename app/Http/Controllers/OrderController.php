@@ -39,10 +39,8 @@ class OrderController extends Controller
         return redirect()->to('/orders');
     }
 
-    public function destroy(Request $request)
+    public function destroy(Order $order)
     {
-        $id = $request->integer('id');
-        $order = Order::all()->where('id', '=', $id)->first();
         $order->delete();
         return redirect()->to('/orders');
     }
